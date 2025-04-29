@@ -197,43 +197,43 @@ document.addEventListener('DOMContentLoaded', function() {
             // Mostrar loading
             submitBtn.style.display = 'none';
             loadingSpinner.style.display = 'block';
-            
-            // Simular envio (substituir por AJAX real)
-            setTimeout(function() {
-                // Esconder loading
-                submitBtn.style.display = 'inline-flex';
-                loadingSpinner.style.display = 'none';
-                
-                // Feedback visual
-                alert('Formulário enviado com sucesso! Entraremos em contato em breve.');
-                
-                // Para envio real, descomente e adapte:
-                /*
-                const formData = new FormData(form);
-                
-                fetch('URL_DO_SEU_ENDPOINT', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    submitBtn.style.display = 'inline-flex';
-                    loadingSpinner.style.display = 'none';
-                    
-                    if (data.success) {
-                        form.reset();
-                        showSuccessMessage('Formulário enviado com sucesso!');
-                    } else {
-                        alert('Ocorreu um erro: ' + (data.message || 'Tente novamente mais tarde.'));
-                    }
-                })
-                .catch(error => {
-                    submitBtn.style.display = 'inline-flex';
-                    loadingSpinner.style.display = 'none';
-                    alert('Erro na conexão. Tente novamente.');
-                });
-                */
-            }, 1500);
+	      
+	(async function () {
+    const { createClient } = await import('https://esm.sh/@supabase/supabase-js');
+
+    const supabase = createClient(
+	 'https://lrmhohppvcbdgecczjus.supabase.co',
+	 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxybWhvaHBwdmNiZGdlY2N6anVzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NDEzNjMsImV4cCI6MjA2MTUxNzM2M30.tkRlxE1eYFdM9F8O327CLMeI-N44T_trc130Otqtg40'
+      );
+
+    const formData = new FormData(form);
+
+    const { error } = await supabase.from('leads').insert([{
+        nome: formData.get('nome'),
+        telefone: formData.get('telefone'),
+        cidade: formData.get('cidade'),
+        email: formData.get('email'),
+        conheceu: formData.get('conheceu'),
+        contato: formData.get('contato'),
+        parceiro: parceiroParam || 'anonimo',
+        status: 'novo'
+    }]);
+
+    submitBtn.style.display = 'inline-flex';
+    loadingSpinner.style.display = 'none';
+
+    if (error) {
+        alert('Erro ao enviar: ' + error.message);
+    } else {
+        form.reset();
+        alert('Formulário enviado com sucesso!');
+    }
+})();
+
+
+
+      
+
         } else {
             // Rolar até o primeiro erro
             const firstError = document.querySelector('.has-error');
