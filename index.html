@@ -3,100 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Pesquisa</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Saúde pra Toda Família: Grupo Uniclan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="form-container">
-        <header class="form-header">
-            <h1>Formulário de Pesquisa</h1>
-            <p>Este é um formulário de pesquisa criado com HTML, CSS e JavaScript</p>
-        </header>
+        <div class="header">
+            <img src="https://via.placeholder.com/150x50?text=Uniclan+Logo" alt="Logo Uniclan" class="logo">
+            <h1>Saúde pra Toda Família</h1>
+            <h2>Faça Parte do Grupo Uniclan</h2>
+        </div>
         
-        <form id="survey-form">
+        <div class="welcome-message">
+            <p><i class="fas fa-heart"></i> Seja bem-vindo(a) ao Grupo Uniclan!</p>
+            <p>Preencha todos os campos com atenção. Seus dados serão tratados com confidencialidade e segurança, conforme a LGPD.</p>
+            <!-- Espaço para a informação do parceiro será inserida aqui via JS -->
+        </div>
+        
+        <form id="uniclanForm" novalidate>
+            <input type="hidden" id="parceiro" name="parceiro">
+            
             <div class="form-group">
-                <label for="name">Nome completo</label>
-                <input type="text" id="name" name="name" required>
+                <label for="nome" class="required">Nome completo</label>
+                <input type="text" id="nome" name="nome" required>
+                <div class="error-message" id="nome-error"></div>
             </div>
             
             <div class="form-group">
-                <label for="email">E-mail</label>
+                <label for="telefone" class="required">Telefone / WhatsApp</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                <div class="error-message" id="telefone-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="cidade" class="required">Cidade</label>
+                <input type="text" id="cidade" name="cidade" required>
+                <div class="error-message" id="cidade-error"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email" class="required">E-mail</label>
                 <input type="email" id="email" name="email" required>
+                <div class="error-message" id="email-error"></div>
             </div>
             
             <div class="form-group">
-                <label for="age">Idade (opcional)</label>
-                <input type="number" id="age" name="age" min="10" max="99">
+                <label for="plano">Já possui outro Plano? Qual?</label>
+                <input type="text" id="plano" name="plano">
             </div>
             
-            <div class="form-group">
-                <label>Qual opção melhor descreve sua situação atual?</label>
-                <select id="dropdown" name="role" required>
-                    <option disabled selected value>Selecione uma opção</option>
-                    <option value="student">Estudante</option>
-                    <option value="job">Trabalho em tempo integral</option>
-                    <option value="learner">Estudante em tempo integral</option>
-                    <option value="other">Outro</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label>Você recomendaria este formulário para um amigo?</label>
+            <div class="form-group radio-container">
+                <label class="required">Como conheceu o Plano?</label>
                 <div class="radio-group">
-                    <label>
-                        <input type="radio" name="recommend" value="definitely" checked> 
-                        Definitivamente
-                    </label>
-                    <label>
-                        <input type="radio" name="recommend" value="maybe"> 
-                        Talvez
-                    </label>
-                    <label>
-                        <input type="radio" name="recommend" value="not-sure"> 
-                        Não tenho certeza
-                    </label>
+                    <div class="radio-option">
+                        <input type="radio" id="indicacao" name="conheceu" value="Indicação" required>
+                        <label for="indicacao"><i class="fas fa-user-friends"></i> Indicação</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="rede-social" name="conheceu" value="Rede Social">
+                        <label for="rede-social"><i class="fas fa-share-alt"></i> Rede Social</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="google" name="conheceu" value="Google">
+                        <label for="google"><i class="fab fa-google"></i> Google</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="outro" name="conheceu" value="Outro">
+                        <label for="outro"><i class="fas fa-ellipsis-h"></i> Outro</label>
+                    </div>
                 </div>
+                <div class="error-message" id="conheceu-error"></div>
             </div>
             
-            <div class="form-group">
-                <label>O que você gostaria de ver melhorado? (Marque todas que se aplicam)</label>
-                <div class="checkbox-group">
-                    <label>
-                        <input type="checkbox" name="improvements" value="front-end"> 
-                        Projetos front-end
-                    </label>
-                    <label>
-                        <input type="checkbox" name="improvements" value="back-end"> 
-                        Projetos back-end
-                    </label>
-                    <label>
-                        <input type="checkbox" name="improvements" value="data-visualization"> 
-                        Visualização de dados
-                    </label>
-                    <label>
-                        <input type="checkbox" name="improvements" value="challenges"> 
-                        Desafios
-                    </label>
+            <div class="form-group radio-container">
+                <label class="required">Como prefere ser contatado?</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="ligacao" name="contato" value="Ligação" required>
+                        <label for="ligacao"><i class="fas fa-phone"></i> Ligação</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="whatsapp" name="contato" value="WhatsApp">
+                        <label for="whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="email-contato" name="contato" value="Email">
+                        <label for="email-contato"><i class="fas fa-envelope"></i> Email</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="indiferente" name="contato" value="Indiferente">
+                        <label for="indiferente"><i class="fas fa-check-circle"></i> Indiferente</label>
+                    </div>
                 </div>
+                <div class="error-message" id="contato-error"></div>
             </div>
             
             <div class="form-group">
-                <label for="comments">Algum comentário ou sugestão?</label>
-                <textarea id="comments" name="comments" rows="4"></textarea>
+                <label for="observacao">Observação:</label>
+                <textarea id="observacao" name="observacao" placeholder="Se precisar de algo específico, informe aqui..."></textarea>
             </div>
             
-            <div class="form-group">
-                <button type="submit" id="submit">Enviar</button>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="lgpd" name="lgpd" required>
+                <label for="lgpd">Li e aceito a <a href="#" id="lgpd-link">Política de Privacidade</a> conforme a LGPD</label>
+                <div class="error-message" id="lgpd-error"></div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" id="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Enviar
+                </button>
+                <div class="loading-spinner" id="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i> Enviando...
+                </div>
             </div>
         </form>
+        
+        <div class="assistance">
+            <p><i class="fas fa-info-circle"></i> Dúvidas ou assistência:</p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:gpuniclanmarketing@gmail.com">gpuniclanmarketing@gmail.com</a></p>
+            <p><i class="fas fa-phone"></i> <a href="tel:1433022680">(14) 3302-2680</a></p>
+        </div>
     </div>
 
-    <div id="success-message" class="hidden">
-        <h2>Obrigado por responder nossa pesquisa!</h2>
-        <p>Seus dados foram enviados com sucesso.</p>
+    <!-- Modal LGPD -->
+    <div id="lgpd-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Política de Privacidade</h3>
+            <div class="modal-body">
+                <p>Nós do Grupo Uniclan respeitamos sua privacidade e protegemos seus dados pessoais de acordo com a Lei Geral de Proteção de Dados (LGPD - Lei 13.709/2018).</p>
+                <p><strong>Como usamos seus dados:</strong></p>
+                <ul>
+                    <li>Para entrar em contato e agendar consultas</li>
+                    <li>Para prestar os serviços de saúde</li>
+                    <li>Para melhorar nossos serviços</li>
+                    <li>Para enviar informações relevantes sobre saúde</li>
+                </ul>
+                <p>Seus dados não serão compartilhados com terceiros sem sua autorização explícita.</p>
+                <p>Você pode solicitar a exclusão de seus dados a qualquer momento.</p>
+            </div>
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
